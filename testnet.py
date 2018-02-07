@@ -2,6 +2,7 @@
 import steembase
 import steem
 
+from steem.blog import Blog
 from steembase.account import PasswordKey
 from steembase.account import PrivateKey
 
@@ -39,11 +40,14 @@ mpk = str(memo_key.get_private_key())
 w = s.wallet.Wallet(steemd_instance=client)
 print ("mgu->mgu23 1 BSD")
 w.setKeys({'memo':mpk, 'owner':opk, 'posting':ppk, 'active':apk})
-client.transfer(to='mgu23', amount=1, asset='SBD', account='mgu')
+#client.transfer(to='mgu23', amount=1, asset='SBD', account='mgu')
 account = steem.account.Account('mgu', steemd_instance=client)
 bal = account['sbd_balance']
 account2 = steem.account.Account('mgu23', steemd_instance=client)
 bal2 = account2['sbd_balance']
 print (bal)
 print (bal2)
-
+c = s.commit.Commit(steemd_instance=client, wallet_instance=w)
+#c.post(   "this is my post title","this is my post body for testing purposes","mgu",   tags=["mgu",])
+b = s.blog.Blog('mgu', steemd_instance=client)
+print (b.take())
